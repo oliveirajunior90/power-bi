@@ -7,7 +7,7 @@ const { google } = require('googleapis')
 
 const jwt = new google.auth.JWT(key.client_email, null, key.private_key, config.GOOGLE_API_URL)
 
-/*
+
 jwt.authorize((err, response) => {
 
     google.analytics('v3').data.ga.get({
@@ -18,20 +18,18 @@ jwt.authorize((err, response) => {
         metrics: 'ga:pageviews'
       },
       (err, result) => {
-        console.log(result.rows)
+        result.data
       }
     )
   })
 
-  dimensions
-  ga:date
-  ga:campaign
-  ga:source
-  ga:medium
+  // dimensions
+  // ga:date
+  // ga:campaign
+  // ga:source
+  // ga:medium
 
-  metrics
-  GA:Sessions
-  
-  */
+  // metrics
+  // GA:Sessions
 
   module.exports = jwt

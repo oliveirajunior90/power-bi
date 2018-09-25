@@ -12,7 +12,10 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "googleapis": "^32.0.0"
+    "googleapis": "^32.0.0",
+    "mysql2": "^1.6.1",
+    "node-fetch": "^2.2.0",
+    "sequelize": "^4.38.1"
   },
   "devDependencies": {
     "dotenv": "^6.0.0",
