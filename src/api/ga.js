@@ -36,7 +36,7 @@ exports.getGoogleAnalyticsInsights = () => {
     
   })
   
-  const insights = searchGAInsightsByMetrics(metricGroups[0])                 
+  //const insights = searchGAInsightsByMetrics(metricGroups[0])                 
 
   //return JSON.stringify(insights)
 }
