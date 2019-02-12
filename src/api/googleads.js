@@ -1,9 +1,8 @@
 const {convertCsvToJson} = require('../utils/convertCsvToJson')
+const GoogleAds = require('../utils/google-ads')
 const config = require('../config/config')
 
-const AdwordsReport = require('node-adwords').AdwordsReport;
-
-const googleAdsReport = new AdwordsReport({
+const googleAdsReport = {
     developerToken: config.GOOGLE_ADS.developerToken,
     reportAgent: config.GOOGLE_ADS.reportAgent,
     clientCustomerId: config.GOOGLE_ADS.clientCustomerId,
@@ -11,7 +10,7 @@ const googleAdsReport = new AdwordsReport({
     client_secret: config.GOOGLE_ADS.client_secret,
     refresh_token: config.GOOGLE_ADS.refresh_token,
     access_token: config.GOOGLE_ADS.access_token
-});
+};
 
 const googleAdsParams ={
     reportName: 'Custom Adgroup Performance Report',
@@ -21,25 +20,24 @@ const googleAdsParams ={
         { field: 'CampaignStatus', operator: 'IN', values: ['ENABLED', 'PAUSED'] }
     ],
     dateRangeType: 'CUSTOM_DATE', //defaults to CUSTOM_DATE. startDate or endDate required for CUSTOM_DATE
-    startDate: new Date("05/01/2018"),
+    startDate: new Date("10/12/2018"),
     endDate: new Date(),
     format: 'CSV' //defaults to CSV
 }
 
 
-exports.getGoogleAdsInsights = async() => {
-    const adsReport = await googleAdsReport.getReport(
-        'v201809', 
-        googleAdsParams, 
-        async(error, report) => {
-            const resp = await convertCsvToJson(error, report)
-            return resp
-        }
-    )
+exports.getGoogleAdsInsights = async(idGads) => {
+    
+    googleAdsReport.clientCustomerId = idGads
+    
+    const data = new GoogleAds(googleAdsReport) 
+    
+    const response = await data.getReport('v201809', googleAdsParams)
+    const responseJson = convertCsvToJson(response)
+
+    return responseJson
+
 }
+    
 
 
-
-
-//client_id: '429645920680-ukd0deva5vr1ql28vt3meup3uj0mi6dj.apps.googlereportcontent.com', //this is the api console client_id
-//client_secret: '3Zmw2_i4IVgIFEivzAHQsC7a'

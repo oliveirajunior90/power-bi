@@ -2,8 +2,6 @@ const config = require('../config/config')
 const adsSdk = require('facebook-nodejs-business-sdk');
 const AdAccount = adsSdk.AdAccount;
 
-
-
 const api = adsSdk.FacebookAdsApi.init(config.FACEBOOK.access_token);
 
 api.setDebug(false);
@@ -33,14 +31,14 @@ exports.getFacebookInsights = async() => {
   const facebookFiltered = facebook.map(result => {
 
       return {
-          account_id : result.account_id,
-          account_name : result.account_name,
-          campaign_name : result.campaign_name,
-          date_start : result.date_start,
-          date_stop : result.date_stop,
+          accountId : result.account_id,
+          accountName : result.account_name,
+          campaignName : result.campaign_name,
+          dateStart : result.date_start,
+          dateStop : result.date_stop,
           impressions : result.impressions,
-          spend : result.send,
-          adset_name: result.adset_name
+          spend : result.spend,
+          adsetName: result.adset_name
       }
       
   })
