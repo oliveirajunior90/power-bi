@@ -1,6 +1,10 @@
 {
   "name": "api-powerbi",
   "version": "1.0.0",
+  "engines": {
+    "node": "8.11.1",
+    "npm": "6.7.0"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,9 +12,7 @@
     "start": "./node_modules/.bin/nodemon bin/server.js",
     "test": "jest --passWithNoTests"
   },
-  "engines": {
-    "node": "8.11.1"
-  },
+  
   "author": "",
   "license": "ISC",
   "dependencies": {
