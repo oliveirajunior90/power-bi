@@ -8,7 +8,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "bin/server.js",
+    "build": "src/server.js",
     "start": "./node_modules/.bin/nodemon bin/server.js",
     "test": "jest --passWithNoTests"
   },
