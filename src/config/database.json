@@ -1,0 +1,25 @@
+{
+  "development": {
+    "username": "avantare_integbi",
+    "password": "Ko4~Fh2.!TI]",
+    "database": "avantare_integracao-powerbi",
+    "host": "avantare.com.br",
+    "dialect": "mysql",
+    "logging": false
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "avantare_integbi",
+    "password": "Ko4~Fh2.!TI]",
+    "database": "avantare_integracao-powerbi",
+    "host": "avantare.com.br",
+    "dialect": "mysql",
+    "logging": false
+  }
+}
