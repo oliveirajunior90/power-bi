@@ -7,7 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     facebookAdAccountId: DataTypes.STRING,
     gadsId: DataTypes.STRING,
     slug: DataTypes.STRING,
-    status: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false}
+    status: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false},
+    statusGa: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false},
+    statusGads: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false},
+    statusFacebook: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false}
   }, {});
   campanha.associate = function(models) {
     campanha.belongsTo(models.cliente, {foreignKey: 'clienteId'});

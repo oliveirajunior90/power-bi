@@ -1,7 +1,7 @@
 const config = require('../config/config')
 const adsSdk = require('facebook-nodejs-business-sdk');
 const AdAccount = adsSdk.AdAccount;
-
+const date = require('../utils/date')
 const api = adsSdk.FacebookAdsApi.init(config.FACEBOOK.access_token);
 
 api.setDebug(false);
@@ -21,12 +21,22 @@ const params = {
   'level': 'adset',
   'filtering': [],
   'breakdowns': [],
-  'time_range': { 'since': '2018-10-28', 'until': '2019-01-17' },
+  //'time_range': { 'since': '2018-10-28', 'until': '2019-01-17' },
+  //'date_preset' : 'yesterday'
 };
 
-exports.getFacebookInsights = async() => {
+const dateStart = date.formatDate('12/01/2019')
 
-  const facebook = await new AdAccount(config.FACEBOOK.ad_account_id).getInsights(fields, params)
+const endStart = date.getCurrentDate()
+
+exports.getFacebookInsights = async(accountId, type) => {
+
+  if(type == 'refresh')
+    params.date_preset = 'yesterday'
+  else
+    params.time_range = {'since': dateStart, 'until': endStart }
+
+  const facebook = await new AdAccount(accountId).getInsights(fields, params)
         
   const facebookFiltered = facebook.map(result => {
 

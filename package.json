@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "./node_modules/.bin/nodemon bin/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "test:tdd": "./node_modules/.bin/mocha -t 100000 tests/**/*.spec.js",
-    "sequelize": "./node_modules/.bin/sequelize"
+    "test": "jest --passWithNoTests"
   },
   "author": "",
   "license": "ISC",
@@ -40,7 +38,9 @@
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
+    "jest": "^24.4.0",
     "mocha": "^5.2.0",
-    "nodemon": "^1.18.3"
+    "nodemon": "^1.18.3",
+    "supertest": "^4.0.0"
   }
 }

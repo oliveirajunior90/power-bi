@@ -2,8 +2,21 @@
 const config = require('../config/config')
 const key = require('../config/auth.json')
 const { google } = require('googleapis')
+const date = require('../utils/date')
 
-exports.getGoogleAnalyticsInsights = async(gaId, startDate = '30daysAgo') => {
+exports.getGoogleAnalyticsInsights = async(gaId, type) => {
+
+  let startDate
+  let endDate 
+
+  if(type == 'refresh') {
+    startDate = 'yesterday'
+    endDate = 'yesterday'
+  } else {
+    startDate = date.formatDate('12/01/2019')
+    endDate = 'today'
+  }
+    
 
   const metrics = [
     'ga:sessions, ga:impressions, ga:goal1completions, ga:goal2completions, ga:goal3completions, ga:goal4completions, ga:goal5completions, ga:goal6completions, ga:goal7completions, ga:goal8completions',
@@ -17,7 +30,7 @@ exports.getGoogleAnalyticsInsights = async(gaId, startDate = '30daysAgo') => {
       auth: jwt,
       ids: 'ga:' + gaId,
       'start-date': startDate,
-      'end-date': 'today',
+      'end-date': endDate,
       metrics,
       dimensions: 'ga:date, ga:campaign, ga:source, ga:medium'
   })

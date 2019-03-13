@@ -1,6 +1,7 @@
 const {convertCsvToJson} = require('../utils/convertCsvToJson')
 const GoogleAds = require('../utils/google-ads')
 const config = require('../config/config')
+const moment = require('moment')
 
 const googleAdsReport = {
     developerToken: config.GOOGLE_ADS.developerToken,
@@ -12,27 +13,25 @@ const googleAdsReport = {
     access_token: config.GOOGLE_ADS.access_token
 };
 
-const googleAdsParams ={
-    reportName: 'Custom Adgroup Performance Report',
-    reportType: 'FINAL_URL_REPORT',
-    fields: ['Date', 'CampaignName', 'Impressions', 'Clicks', 'Cost', 'EffectiveFinalUrl', 'VideoViews'],
-    filters: [
-        { field: 'CampaignStatus', operator: 'IN', values: ['ENABLED', 'PAUSED'] }
-    ],
-    dateRangeType: 'CUSTOM_DATE', //defaults to CUSTOM_DATE. startDate or endDate required for CUSTOM_DATE
-    startDate: new Date("10/12/2018"),
-    endDate: new Date(),
-    format: 'CSV' //defaults to CSV
-}
+var startDate = moment(new Date('11/01/2019')).format('YYYYDDMM')
+                
+var endDate = moment(new Date('10/03/2019')).format('YYYYDDMM')
 
-
-exports.getGoogleAdsInsights = async(idGads) => {
+exports.getGoogleAdsInsights = async(idGads, type) => {
     
     googleAdsReport.clientCustomerId = idGads
+
+    let query = ''
+
+    if(type == 'refresh') 
+        query = 'select Date, CampaignName, Impressions, Clicks, Cost, EffectiveFinalUrl, VideoViews from FINAL_URL_REPORT during YESTERDAY'
+    else 
+        query = `select Date, CampaignName, Impressions, Clicks, Cost, EffectiveFinalUrl, VideoViews from FINAL_URL_REPORT during ${startDate}, ${endDate}`
     
     const data = new GoogleAds(googleAdsReport) 
     
-    const response = await data.getReport('v201809', googleAdsParams)
+    const response = await data.getReport('v201809', { format: 'CSV', query })
+
     const responseJson = convertCsvToJson(response)
 
     return responseJson
@@ -41,3 +40,11 @@ exports.getGoogleAdsInsights = async(idGads) => {
     
 
 
+/*
+
+select
+	Date, CampaignName, Impressions, Clicks, Cost, EffectiveFinalUrl, VideoViews
+from FINAL_URL_REPORT
+during YESTERDAY
+
+*/

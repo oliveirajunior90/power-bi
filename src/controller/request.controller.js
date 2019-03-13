@@ -3,11 +3,11 @@ const Cliente = require('../repository/client.repository')
 const Campanha = require('../repository/campaign.repository') 
 
 
-exports.injectInsights = async(req,res,next) => {
+exports.updateCampaigns = async(req,res,next) => {
 
     try {
 
-        const data = await getGoogleAnalyticsInsights(132904968, '')
+        const data = await Campanha.updateCampaigns()
         
         res.status(200).send(data)
 

@@ -4,7 +4,8 @@
     "password": "Ko4~Fh2.!TI]",
     "database": "avantare_integracao-powerbi",
     "host": "avantare.com.br",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "logging": false
   },
   "test": {
     "username": "root",
@@ -18,6 +19,7 @@
     "password": "Ko4~Fh2.!TI]",
     "database": "avantare_integracao-powerbi",
     "host": "avantare.com.br",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "logging": false
   }
 }

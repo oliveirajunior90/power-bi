@@ -11,13 +11,13 @@ class GoogleAds {
         this.oauth2Client = new OAuth2Client(this.credentials.client_id, this.credentials.client_secret, '');
     }
 
-    getReport(version, report) {
-
+    async getReport(version, report) {
+        
         return rp({
             method: 'POST',
             uri: 'https://adwords.google.com/api/adwords/reportdownload/' + version,
             form: this.buildReportBody(report),
-            headers : this.getHeaders()
+            headers : await this.getHeaders()
         })
         
     }
@@ -37,19 +37,19 @@ class GoogleAds {
             refresh_token: refreshToken
         });
 
-        return this.oauth2Client.getAccessToken()
+        return this.oauth2Client.getRequestHeaders(this.credentials.refresh_token)
 
     }
 
     async getHeaders(additionalHeaders = null) {   
 
         const accessToken = await this.getAccessToken()
-
+        
         const headers = {
-            Authorization: 'Bearer ' + accessToken.token,
+            Authorization: accessToken.Authorization,
             developerToken: this.credentials.developerToken,
             clientCustomerId: this.credentials.clientCustomerId,
-            'content-type': 'application/x-www-form-urlencoded',
+            'content-type': 'application/x-www-form-urlencoded'
         };
 
         return headers
@@ -75,7 +75,6 @@ class GoogleAds {
 }
 
 module.exports = GoogleAds
-
 
 
 

@@ -51,11 +51,11 @@ exports.delete = async(idCampaign) => await campanha.destroy({where: {id : idCam
 
 exports.updateCampaigns = async() => {
 
-    const result = await campanha.findAll({
+    const result = await campanha.all({
         attributes: ['id']
     })
 
-    result.map(res => refreshActiveInsights(res.dataValues.id))
+    return result.map(res => res.id)
 
 }
 
@@ -138,7 +138,7 @@ const saveGoogleAdsInsights = async(googleAdsInsights, idCampaign) => {
         })
 
     })
-    
+
     const database = await gads.bulkCreate(insights, {campanhaId : idCampaign})
 
     campanha.update({statusGads: 1}, {where: {id:idCampaign}})
@@ -149,12 +149,12 @@ const saveGoogleAdsInsights = async(googleAdsInsights, idCampaign) => {
 
 function substObject(res) {
     for(var x in res) 
-        if(x.startsWith("FINAL") == true) 
+        if(x.startsWith("Custom") == true) 
             return res[x]
     
 }
 
-const saveFacebookCampaign = async(idCampaignParam, campaign) => {
+const saveFacebookCampaign = async(idCampaignParam, campaign, date) => {
 
     if(campaign.facebookAdAccountId) { 
 
@@ -163,7 +163,7 @@ const saveFacebookCampaign = async(idCampaignParam, campaign) => {
             error.message = ERROR_MESSAGE_ACTIVE
             return error
         } else {
-            const facebookInsights = await getFacebookInsights(campaign.facebookAdAccountId, 'activate')
+            const facebookInsights = await getFacebookInsights(campaign.facebookAdAccountId)
             const responseFacebook = await saveFacebookInsights(facebookInsights, idCampaignParam)
             if(responseFacebook){
                 const success = {}
@@ -190,7 +190,7 @@ const saveGaCampaign = async(idCampaignParam, campaign, date) => {
             error.message = ERROR_MESSAGE_ACTIVE
             return error
         } else {
-            const gaInsights = await getGoogleAnalyticsInsights(campaign.vistaGA, 'activate')
+            const gaInsights = await getGoogleAnalyticsInsights(campaign.vistaGA)
             const responseGA = await saveGaInsights(gaInsights, idCampaignParam)
             if(responseGA) {
                 const success = {}
@@ -208,7 +208,7 @@ const saveGaCampaign = async(idCampaignParam, campaign, date) => {
 
 }         
 
-const saveGoogleAdsCampaign = async(idCampaignParam, campaign) => {
+const saveGoogleAdsCampaign = async(idCampaignParam, campaign, date) => {
 
     if(campaign.gadsId) {
 
@@ -217,7 +217,7 @@ const saveGoogleAdsCampaign = async(idCampaignParam, campaign) => {
             error.message = ERROR_MESSAGE_ACTIVE
             return error
         } else {
-            const googleAdsInsights = await getGoogleAdsInsights(campaign.gadsId, 'activate')
+            const googleAdsInsights = await getGoogleAdsInsights(campaign.gadsId)
             const responseGads = await saveGoogleAdsInsights(googleAdsInsights, idCampaignParam)
             if(responseGads) {
                 const success = {}
@@ -231,28 +231,6 @@ const saveGoogleAdsCampaign = async(idCampaignParam, campaign) => {
                  
         }
 
-    }
-    
-}
-
-
-const refreshActiveInsights = async(idCampaign) => {
-
-    const campaign = await campanha.findByPk(idCampaign,{raw: true})
-
-    if(campaign.vistaGA && campaign.statusGa === 1) {
-        const gaInsights = await getGoogleAnalyticsInsights(campaign.vistaGA, 'refresh')
-        await saveGaInsights(gaInsights, idCampaign)
-    }
-
-    if(campaign.facebookAdAccountId && campaign.statusFacebook === 1) {
-        const facebookInsights = await getFacebookInsights(campaign.facebookAdAccountId,'refresh')
-        await saveFacebookInsights(facebookInsights, idCampaign)
-    }
-
-    if(campaign.gadsId && campaign.statusGads === 1) {
-        const googleAdsInsights = await getGoogleAdsInsights(campaign.gadsId, 'refresh')
-        await saveGoogleAdsInsights(googleAdsInsights, idCampaign)
     }
     
 }

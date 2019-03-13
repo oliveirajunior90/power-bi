@@ -16,7 +16,6 @@ app.get('/campaign/start/:id', controller.startCampaign)
 app.put('/campaign/:id', controller.updateCampaign)
 app.delete('/campaign/:id', controller.deleteCampaign)
 
-app.get('/ads/authentication' , controller.adsAuthentication)
-app.get('/request-ga-avantare', controller.injectInsights)
+app.get('/campaigns/update', controller.updateCampaigns)
 
 module.exports = app
