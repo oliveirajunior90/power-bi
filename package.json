@@ -7,6 +7,9 @@
     "start": "./node_modules/.bin/nodemon bin/server.js",
     "test": "jest --passWithNoTests"
   },
+  "engines": {
+    "node": "8.11.1"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
