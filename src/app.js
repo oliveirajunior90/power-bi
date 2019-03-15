@@ -18,10 +18,4 @@ app.delete('/campaign/:id', controller.deleteCampaign)
 
 app.get('/campaigns/update', controller.updateCampaigns)
 
-app.get('/', (req, res, next)=>{
-    res.status(201).send({
-        message: 'success'       
-    })
-})
-
 module.exports = app
