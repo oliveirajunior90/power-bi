@@ -8,8 +8,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "src/server.js",
-    "start": "./node_modules/.bin/nodemon bin/server.js",
+    "start": "node src/server.js",
+    "server": "./node_modules/.bin/nodemon bin/server.js",
     "test": "jest --passWithNoTests"
   },
   
