@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node src/server.js",
-    "start": "node src/server.js",
+    "astart": "node src/server.js",
     "server": "./node_modules/.bin/nodemon bin/server.js",
     "test": "jest --passWithNoTests"
   },
