@@ -1,1 +1,5 @@
 node_modules
+.sequelizerc
+package-lock.json
+bin
+__tests__
