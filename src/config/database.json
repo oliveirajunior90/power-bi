@@ -5,14 +5,16 @@
     "database": "avantare_integracao-powerbi",
     "host": "avantare.com.br",
     "dialect": "mysql",
-    "logging": false
+    "logging": false,
+    "operatorsAliases": false
   },
   "test": {
     "username": "root",
     "password": null,
     "database": "database_test",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "operatorsAliases": false
   },
   "production": {
     "username": "avantare_integbi",
@@ -20,6 +22,7 @@
     "database": "avantare_integracao-powerbi",
     "host": "avantare.com.br",
     "dialect": "mysql",
-    "logging": false
+    "logging": false,
+    "operatorsAliases": false
   }
 }
